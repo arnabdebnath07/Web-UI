@@ -1,0 +1,21 @@
+/* page frame (Figma 1320:1698): sidebar 232 + main, 24 gutters, 48 below */
+.page {
+  min-width: 1024px;
+}
+
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px 24px 48px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.main {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

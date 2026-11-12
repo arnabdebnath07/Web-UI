@@ -1,0 +1,228 @@
+/* Garmin lineup (Figma 1320:1779) · Series tile (1163:29134) · Price ruler (1320:1796) */
+.lineup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font: 700 28px/34px var(--nk-font-family);
+  color: var(--web-text);
+}
+
+.carousel {
+  position: relative;
+  min-width: 0;
+}
+
+.viewport {
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+.viewport[data-dragging] {
+  cursor: grabbing;
+}
+
+.track {
+  position: relative;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.tiles {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* ── tile ── Default: 96 photo / Medium name. Hover: the photo grows like Selected (asked: no grey tile). Selected: 112 photo / SemiBold name (asked: no halo).
+   The photo is a 112 box scaled off its bottom edge (96 = 112 × 0.857), so Default's 28 top + 96 and Selected's 12 top + 112
+   share one baseline and the tile stays 190 tall. No opacity for state (Figma note). */
+.tile {
+  position: relative;
+  flex: 0 0 148px;
+  width: 148px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  border-radius: 16px;
+  text-align: center;
+}
+/* no focus ring on the tiles (asked): a keyboard-focused series glides under the needle instead */
+.tile:focus-visible {
+  outline: none;
+}
+
+.photo {
+  position: relative;
+  display: block;
+  width: 112px;
+  height: 112px;
+  margin-bottom: 12px;
+  transform-origin: 50% 100%;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.name {
+  position: relative;
+  width: 100%;
+  font: 500 16px/22px var(--nk-font-family);
+  letter-spacing: -0.15px;
+  color: var(--web-text);
+  white-space: nowrap;
+}
+.tile[data-selected] .name {
+  font-weight: 600;
+}
+
+.price {
+  position: relative;
+  width: 100%;
+  font: 400 13px/20px var(--nk-font-family);
+  letter-spacing: -0.1px;
+  color: var(--web-text-muted);
+}
+
+/* ── price ruler ── 2px ticks 7.8 apart: a major (18 tall) under each tile's centre, 19 minors (12) between. While the
+   row moves, the ticks by the needle rise (scale, painted per frame) and take its pink (--tint) — the tower. */
+.ruler {
+  position: relative;
+  height: 28px;
+}
+
+.tick,
+.tickMajor {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  border-radius: 41px;
+  transform-origin: 50% 100%;
+}
+.tick {
+  height: 12px;
+  background: var(--web-tick);
+}
+.tickMajor {
+  height: 18px;
+  background: var(--web-tick-major);
+}
+.tick::after,
+.tickMajor::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--web-tick-tint);
+  opacity: var(--tint, 0);
+}
+
+/* the needle (Figma Indicator 4 × 28): a 4px dot over a 2 × 20 line, pivoting on its foot at the ruler's baseline */
+.indicator {
+  position: absolute;
+  width: 4px;
+  height: 28px;
+  pointer-events: none;
+}
+.needle {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+}
+.dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--web-needle-dot);
+}
+.line {
+  position: absolute;
+  left: 1px;
+  bottom: 0;
+  width: 2px;
+  height: 20px;
+  border-radius: 9999px;
+  transform-origin: 50% 100%;
+  background: var(--web-needle);
+}
+
+/* ── edges ── */
+.fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 96px;
+  pointer-events: none;
+  transition: opacity 240ms var(--web-ease);
+}
+.fade[data-hidden] {
+  opacity: 0;
+}
+.fadeEnd {
+  right: 0;
+  background: var(--web-fade);
+}
+.fadeStart {
+  left: 0;
+  background: var(--web-fade);
+  transform: scaleX(-1);
+}
+
+.arrow {
+  position: absolute;
+  top: 48px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  border: 1px solid var(--web-border);
+  background: var(--web-page);
+  box-shadow: var(--web-shadow-arrow);
+  transition:
+    transform 150ms var(--web-ease),
+    opacity 200ms var(--web-ease),
+    scale 240ms var(--web-ease);
+}
+/* at an end: fades and shrinks away (scale, so the press's transform stays its own) */
+.arrow[data-hidden] {
+  opacity: 0;
+  scale: 0.8;
+  pointer-events: none;
+}
+.arrow:active {
+  transform: scale(0.94);
+}
+.arrowEnd {
+  right: 4px;
+}
+.arrowStart {
+  left: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    transition: opacity 120ms linear;
+  }
+  .arrow[data-hidden] {
+    scale: 1;
+  }
+}

@@ -1,0 +1,59 @@
+/* Web Garmin lineup (Figma XzSbnjrYFbhNg6Rc5lKmGJ · 1320:1652, 1332:903). Kit tokens first; the values the kit has no
+   token for are the Figma source values, each marked custom-color. */
+.web-root {
+  --web-page: var(--nk-color-text-inverse); /* #FFFFFF */
+  --web-header: var(--nk-color-brand); /* #FEEE00 */
+  --web-text: var(--nk-color-text-primary); /* #1D2539 */
+  --web-text-muted: var(--nk-color-text-secondary); /* #666D85 */
+  --web-chip: var(--nk-palette-brand-widget-cta); /* #F3F4F7 */
+  --web-border: #e8eaef; /* custom-color — Figma web PLP source value (divider / sort / arrow borders) */
+  --web-checkbox: #999ead; /* custom-color — Figma web PLP source value (filter checkbox outline) */
+  --web-tick: rgba(34, 34, 34, 0.1); /* custom-color — Figma Price ruler minor tick (same as plpLineupTick) */
+  --web-tick-major: rgba(34, 34, 34, 0.3); /* custom-color — Figma Price ruler major tick (same as plpLineupTickMajor) */
+  --web-tick-tint: linear-gradient(to top, #e6a3c1, #ecc2b9); /* custom-color — same as plpLineupTickTint (the tower's pink) */
+  --web-needle: linear-gradient(to top, #c11864, #cf6751); /* custom-color — plpLineupIndicator's pink at full strength (asked: more prominent than Figma's 40%) */
+  --web-needle-dot: linear-gradient(to right, #c11864, #cf6751); /* custom-color — plpLineupIndicatorDot's pink at full strength (asked) */
+  --web-latest: #326bc6; /* custom-color — Figma Series tile Label=Latest (same as plpLineupLatest) */
+  --web-shadow-arrow: 0 2px 10px rgba(0, 0, 0, 0.1); /* custom-color — Figma carousel Next */
+  --web-shadow-arrow-sm: 0 2px 8px rgba(0, 0, 0, 0.08); /* custom-color — Figma chips Next */
+  --web-fade: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95) 60%, #fff); /* custom-color — Figma Fade · right */
+  /* Button · Clear results (1360:1093) */
+  --web-clear-bg: var(--nk-palette-light-pink-bg); /* #FFF5F5 */
+  --web-clear-bg-hover: var(--nk-palette-noon-error-subtle); /* #FFF0F0 */
+  --web-clear-bg-pressed: var(--nk-palette-red200); /* #FED2D2 */
+  --web-clear-border: var(--nk-palette-red200); /* #FED2D2 */
+  --web-clear-border-strong: #fdb5b5; /* custom-color — Figma base/colour/red/300 (no kit token) */
+  --web-clear-text: var(--nk-palette-danger-red); /* #D92626 */
+
+  --web-ease: cubic-bezier(0.65, 0, 0.35, 1);
+
+  min-height: 100vh;
+  background: var(--web-page);
+  color: var(--web-text);
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--nk-color-text-inverse, #fff);
+}
+
+:where(.web-root) *,
+:where(.web-root) *::before,
+:where(.web-root) *::after {
+  box-sizing: border-box;
+}
+
+:where(.web-root) :where(button) {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.web-root :focus-visible {
+  outline: 2px solid var(--nk-color-text-primary);
+  outline-offset: 2px;
+}
